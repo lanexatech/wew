@@ -47,7 +47,14 @@ const useMediaQuery = (query: string): boolean => {
   return matches;
 };
 
-const AspectRatioButton: React.FC<{ ratio: string; current: string; onClick: (ratio: string) => void; disabled: boolean }> = ({ ratio, current, onClick, disabled }) => (
+interface AspectRatioButtonProps {
+  ratio: string;
+  current: string;
+  onClick: (ratio: string) => void;
+  disabled: boolean;
+}
+
+const AspectRatioButton = ({ ratio, current, onClick, disabled }: AspectRatioButtonProps) => (
   <button
     onClick={() => onClick(ratio)}
     disabled={disabled}
@@ -61,7 +68,15 @@ const AspectRatioButton: React.FC<{ ratio: string; current: string; onClick: (ra
   </button>
 );
 
-const ModelSelectionButton: React.FC<{ model: string; name: string; current: string; onClick: (model: string) => void; disabled: boolean }> = ({ model, name, current, onClick, disabled }) => (
+interface ModelSelectionButtonProps {
+  model: string;
+  name: string;
+  current: string;
+  onClick: (model: string) => void;
+  disabled: boolean;
+}
+
+const ModelSelectionButton = ({ model, name, current, onClick, disabled }: ModelSelectionButtonProps) => (
     <button
       onClick={() => onClick(model)}
       disabled={disabled}
@@ -75,7 +90,12 @@ const ModelSelectionButton: React.FC<{ model: string; name: string; current: str
     </button>
 );
 
-const UploaderFrame: React.FC<{ onImageUpload: (file: File), t: (key: string) => string }> = ({ onImageUpload, t }) => {
+interface UploaderFrameProps {
+  onImageUpload: (file: File) => void;
+  t: (key: string) => string;
+}
+
+const UploaderFrame = ({ onImageUpload, t }: UploaderFrameProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -146,7 +166,7 @@ const UploaderFrame: React.FC<{ onImageUpload: (file: File), t: (key: string) =>
 };
 
 
-const PromptInput: React.FC<PromptInputProps> = ({
+const PromptInput = ({
   prompt,
   setPrompt,
   aspectRatio,
@@ -161,7 +181,7 @@ const PromptInput: React.FC<PromptInputProps> = ({
   lang,
   setLang,
   t,
-}) => {
+}: PromptInputProps) => {
   const isNanoBanana = selectedModel === 'gemini-2.5-flash-image-preview';
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const nanoOnMobile = isNanoBanana && !isDesktop;
